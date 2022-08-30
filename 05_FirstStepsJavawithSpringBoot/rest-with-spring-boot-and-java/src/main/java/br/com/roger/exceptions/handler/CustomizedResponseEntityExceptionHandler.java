@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.roger.exceptions.ExceptionResponse;
-import br.com.roger.exceptions.ResourceNotFoundOperationException;
+import br.com.roger.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 @RestController
@@ -28,7 +28,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	}
 	
 	
-	@ExceptionHandler(ResourceNotFoundOperationException.class)
+	@ExceptionHandler(ResourceNotFoundException.class)
 	public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(
 			Exception ex, WebRequest request) {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(

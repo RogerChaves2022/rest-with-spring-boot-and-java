@@ -5,9 +5,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import br.com.roger.exceptions.ResourceNotFoundException;
 import br.com.roger.model.Person;
 import br.com.roger.repositories.PersonRepository;
 
@@ -30,12 +30,6 @@ public class PersonServices {
 		
 		logger.info("Finding one Person!");
 		
-		Person person = new Person();
-		person.setId(counter.incrementAndGet());
-		person.setFirstName("Roger");
-		person.setLastName("Chaves");
-		person.setAddress("Porto Alegre - Rio grande do sul - Brasil");
-		person.setGender("Male");
 		
 		return repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
@@ -48,22 +42,27 @@ public class PersonServices {
 	
 	public Person update(Person person) {
 		logger.info("Updating one Person!");
-		Person entity = repository.findById(person.getId())
+		
+		var entity = repository.findById(person.getId())
 		.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+		
+		
+		entity.setFirstName(person.getFirstName());
+		entity.setLastName(person.getLastName());
+		entity.setAddress(person.getAddress());
+		entity.setGender(person.getGender());
+		
+		
 		return repository.save(person);
 	}
 	
-	public void  delete(String id) {
+	public void  delete(Long id) {
 		logger.info("Delete one Person!");
+		
+		var entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records Found for this ID!"));
+		repository.delete(entity);
 		}
 	
-	private Person mockPerson(int i) {
-		Person person = new Person();
-		person.setId(counter.incrementAndGet());
-		person.setFirstName("Person name; " + i);
-		person.setLastName("Last name; " + i);
-		person.setAddress("Adress in Brasil; " + i);
-		person.setGender("Male");
-		return person;
-	}
+	
 }
