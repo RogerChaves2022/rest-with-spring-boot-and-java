@@ -3,7 +3,7 @@ package br.com.roger.data.vo.v1;
 import java.io.Serializable;
 import java.util.Objects;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -24,7 +24,7 @@ public class PersonVO implements Serializable {
 	
 	private String address;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	private String gender;
 		
 	public PersonVO() {

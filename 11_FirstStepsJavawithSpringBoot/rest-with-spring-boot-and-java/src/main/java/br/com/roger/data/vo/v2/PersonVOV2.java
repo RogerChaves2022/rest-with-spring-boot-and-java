@@ -1,41 +1,31 @@
-package br.com.roger.data.vo.v1;
+package br.com.roger.data.vo.v2;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({"id","address","first_name","last_name","gender"})
-public class PersonVO implements Serializable {
+public class PersonVOV2 implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	
-	private Long id;
-	
-	@JsonProperty("first_name")
+	private Long Id;
 	private String firstName;
-	
-	@JsonProperty("last_name")
 	private String lastName;
-	
-	
 	private String address;
-	
-	//@JsonIgnore
 	private String gender;
+	private Date birthDay;
 		
-	public PersonVO() {
+	public PersonVOV2() {
 	}
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		Id = id;
 	}
 
 	public String getFirstName() {
@@ -69,10 +59,18 @@ public class PersonVO implements Serializable {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+		
+	public Date getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, address, firstName, gender, lastName);
+		return Objects.hash(Id, address, birthDay, firstName, gender, lastName);
 	}
 
 	@Override
@@ -83,11 +81,12 @@ public class PersonVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PersonVO other = (PersonVO) obj;
-		return Objects.equals(id, other.id) && Objects.equals(address, other.address)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
-				&& Objects.equals(lastName, other.lastName);
+		PersonVOV2 other = (PersonVOV2) obj;
+		return Objects.equals(Id, other.Id) && Objects.equals(address, other.address)
+				&& Objects.equals(birthDay, other.birthDay) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(gender, other.gender) && Objects.equals(lastName, other.lastName);
 	}
 	
 	
+		
 }

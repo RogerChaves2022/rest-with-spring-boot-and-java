@@ -1,41 +1,46 @@
-package br.com.roger.data.vo.v1;
+package br.com.roger.model;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@JsonPropertyOrder({"id","address","first_name","last_name","gender"})
-public class PersonVO implements Serializable {
+@Entity
+@Table(name = "person")
+public class Person implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long Id;
 	
-	private Long id;
-	
-	@JsonProperty("first_name")
+	@Column(name = "first_name", nullable = false, length = 80)
 	private String firstName;
 	
-	@JsonProperty("last_name")
+	@Column(name = "last_name", nullable = false, length = 80)
 	private String lastName;
 	
-	
+	@Column(nullable = false, length = 100)
 	private String address;
 	
-	//@JsonIgnore
+	@Column(nullable = false, length = 80)
 	private String gender;
 		
-	public PersonVO() {
+	public Person() {
 	}
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		Id = id;
 	}
 
 	public String getFirstName() {
@@ -72,7 +77,7 @@ public class PersonVO implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, address, firstName, gender, lastName);
+		return Objects.hash(Id, address, firstName, gender, lastName);
 	}
 
 	@Override
@@ -83,8 +88,8 @@ public class PersonVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PersonVO other = (PersonVO) obj;
-		return Objects.equals(id, other.id) && Objects.equals(address, other.address)
+		Person other = (Person) obj;
+		return Objects.equals(Id, other.Id) && Objects.equals(address, other.address)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
 				&& Objects.equals(lastName, other.lastName);
 	}
