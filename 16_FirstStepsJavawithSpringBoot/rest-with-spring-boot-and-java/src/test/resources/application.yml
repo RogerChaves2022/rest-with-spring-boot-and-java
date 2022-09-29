@@ -1,0 +1,26 @@
+server:
+  port: 8888
+cors:
+  originPatterns: http://localhost:8080,http://roger.com.br,http://localhost:3000
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-length: 3600000
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate.ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    show-sql: false
+springdoc:
+  pathsToMatch: 
+    - /api/**/v1/**
+    - /auth/**
+  swagger-ui:
+    use-root-path: true
+  
